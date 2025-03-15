@@ -37,5 +37,7 @@ public class Main {
         tree.traversePostorder();
 
         System.out.println("Resultado de la evaluacion: " + tree.evaluate());
+
+        input.close();
     }
 }
