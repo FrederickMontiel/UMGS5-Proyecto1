@@ -1,6 +1,9 @@
 package gt.edu.miumg.frederickmontiel.objects;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
@@ -134,42 +137,44 @@ public class ExpressionTree {
     }
 
     public void printAsciiTree() {
-        System.out.println("\nDiagrama del arbol de expresion:");
-        printNodeAndBranches(root, 0);
+        if (root == null) {
+            System.out.println("El árbol está vacío.");
+            return;
+        }
+
+        List<List<String>> levels = new ArrayList<>();
+        buildAsciiTree(root, 0, levels);
+
+        for (List<String> level : levels) {
+            for (String str : level) {
+                System.out.print(str);
+            }
+            System.out.println();
+        }
     }
 
-    private void printNodeAndBranches(Node node, int level) {
+    private void buildAsciiTree(Node node, int level, List<List<String>> levels) {
         if (node == null)
             return;
 
-        String indent = "  ".repeat(level);
-
-        System.out.println(indent + node.valor);
-
-        if (node.izquierda != null || node.derecha != null) {
-            System.out.println(indent + "/" + " \\");
-
-            String childIndent = "  ".repeat(level);
-
-            if (node.izquierda != null && node.derecha != null) {
-                System.out.print(childIndent + node.izquierda.valor);
-
-                int spacing = 3;
-                System.out.print(" ".repeat(spacing));
-
-                System.out.println(node.derecha.valor);
-
-                printNodeAndBranches(node.izquierda, level + 1);
-                printNodeAndBranches(node.derecha, level + 1);
-            } else if (node.izquierda != null) {
-                System.out.println(childIndent + node.izquierda.valor);
-                printNodeAndBranches(node.izquierda, level + 1);
-            } else {
-                System.out.println(childIndent + "  " + node.derecha.valor);
-                printNodeAndBranches(node.derecha, level + 1);
-            }
+        if (levels.size() == level) {
+            levels.add(new ArrayList<>());
         }
+
+        String padding = " ".repeat((int) Math.pow(2, Math.max(3 - level, 0)));
+
+        if (levels.get(level).isEmpty()) {
+            levels.get(level).add(padding + node.valor + padding);
+        } else {
+            levels.get(level).add(node.valor + padding);
+        }
+
+        buildAsciiTree(node.izquierda, level + 1, levels);
+        buildAsciiTree(node.derecha, level + 1, levels);
     }
+
+    HashMap<Integer, String> nivelesTextos = new HashMap<>();
+    HashMap<Integer, String> nivelesSlashes = new HashMap<>();
 
     public void printCompactTree() {
         System.out.println("\nRepresentación compacta del arbol:");
