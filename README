@@ -1,0 +1,41 @@
+# Documentación del Proyecto de Árbol de Expresiones
+
+## Descripción General
+Este proyecto contiene un controlador de un árbol que permite procesar expresiones matemáticas "a+b-(c-b)+e" y construye gráficamente un árbol.
+
+## Componentes del Proyecto
+
+### 1. Node.java
+Una clase simple que representa un nodo en el árbol:
+- `valor`: Almacena un operador o variable
+- `izquierda`: Referencia al hijo izquierdo
+- `derecha`: Referencia al hijo derecho
+
+### 2. ExpressionTree.java
+La clase principal que maneja toda la lógica:
+
+- **Construcción del árbol**:
+  - Se usó "Shunting Yard" para convertir expresiones infijas en árboles
+  - Maneja paréntesis y respeta la precedencia de operadores
+
+- **Métodos de recorrido**:
+  - `traversePreorder`: Visita raíz, izquierda, derecha
+  - `traversePostorder`: Visita izquierda, derecha, raíz
+
+- **Evaluación**:
+  - `evaluate`: Calcula el valor de la expresión con los valores asignados
+  - `assignVariable`: Asigna valores a las variables
+
+- **Visualización**:
+  - `printAsciiTree`: Muestra una representación visual del árbol
+  - `printCompactTree`: Muestra una representación lineal compacta
+
+### 3. Main.java
+El punto de entrada del programa:
+- Lee la expresión matemática del usuario
+- Solicita valores para cada variable
+- Muestra el árbol y el resultado final tanto postorden como preorden
+
+## Funcionamiento
+
+El usuario ingresará una expresión matematica inorden y el programa devolverá graficado el arbol y la respuesta en postorden y preorden
