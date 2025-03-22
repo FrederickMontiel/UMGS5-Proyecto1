@@ -16,6 +16,10 @@ public class Main {
         System.out.println("Ingrese una expresion matematica como \"a+b-(c-b)+e\":");
         String expression = input.nextLine().replace(" ", "");
 
+        if(expression.charAt(0) == '-'){
+            expression = "0"+expression;
+        }
+
         ExpressionTree tree = new ExpressionTree(expression);
         Set<Character> requestedVars = new HashSet<>();
 
