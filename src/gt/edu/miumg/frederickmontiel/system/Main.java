@@ -20,6 +20,11 @@ public class Main {
             expression = "0"+expression;
         }
 
+        expression.replace("--", "+");
+        expression.replace("-+", "-");
+        expression.replace("+-", "-");
+        expression.replace("++", "+");
+
         ExpressionTree tree = new ExpressionTree(expression);
         Set<Character> requestedVars = new HashSet<>();
 
